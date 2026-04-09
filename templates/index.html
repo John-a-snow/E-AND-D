@@ -122,3 +122,69 @@
                                 class="bg-primary text-white dark:text-gray-900 w-8 h-8 rounded-full flex items-center justify-center text-xl mr-3 font-sans dark:shadow-[0_0_10px_rgba(14,165,233,0.6)]">2</span>
                             Decryption
                         </h3>
+                        <ol
+                            class="list-[upper-roman] list-inside space-y-3 font-barlow text-xl text-gray-700 dark:text-gray-300 tracking-wide font-semibold mb-6 flex-grow">
+                            <li>Navigate to the 'Decryption' page.</li>
+                            <li>Paste the encrypted code or upload the file.</li>
+                            <li>Enter the SAME 'Key' used for locking.</li>
+                            <li>Click 'Decrypt' to reveal the original text.</li>
+                        </ol>
+                        <div class="bg-white dark:bg-black/50 p-3 rounded border border-gray-300 dark:border-primary/50 font-mono text-sm text-gray-700 dark:text-primary transition-colors duration-500">
+                            <p class="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase mb-1">Example</p>
+                            <p><span class="text-gray-500 dark:text-gray-400">Input:</span> "X7#m9P..."</p>
+                            <p><span class="text-gray-500 dark:text-gray-400">Key:</span> "Secret"</p>
+                            <p><span class="text-gray-500 dark:text-gray-400">Result:</span> "Hello"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center bg-primary/10 p-4 rounded-lg border border-primary">
+                    <p class="font-barlow text-xl tracking-wide uppercase font-bold text-primary">
+                        Note: Keep the KEY safe and dont loose it otherwise your data will never be decrypted
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const guideBtn = document.getElementById('guide-btn');
+            const guideModal = document.getElementById('guide-modal');
+            const guideContent = document.getElementById('guide-content');
+            const closeGuide = document.getElementById('close-guide');
+            const guideBackdrop = document.getElementById('guide-backdrop');
+
+            function openModal() {
+                guideModal.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    guideModal.classList.remove('opacity-0');
+                    guideContent.classList.remove('scale-95', 'translate-y-4');
+                    guideContent.classList.add('scale-100', 'translate-y-0');
+                });
+            }
+
+            function closeModal() {
+                guideModal.classList.add('opacity-0');
+                guideContent.classList.remove('scale-100', 'translate-y-0');
+                guideContent.classList.add('scale-95', 'translate-y-4');
+                setTimeout(() => {
+                    guideModal.classList.add('hidden');
+                }, 300);
+            }
+
+            guideBtn.addEventListener('click', openModal);
+            closeGuide.addEventListener('click', closeModal);
+            guideBackdrop.addEventListener('click', closeModal);
+        </script>
+    </div>
+    <a href="{{ url_for('encryption') }}"
+        class="fixed top-1/2 left-4 -translate-y-1/2 transition-all duration-300 hover:scale-110 dark:hover:drop-shadow-[0_0_15px_rgba(14,165,233,1)] z-10 opacity-70 hover:opacity-100 filter dark:invert-0 invert transition-all duration-500">
+        <img src="{{ url_for('static', filename='assets/leftarrow.png') }}" alt="Go to Encryption" class="w-24 h-24">
+    </a>
+    <a href="{{ url_for('decryption') }}"
+        class="fixed top-1/2 right-4 -translate-y-1/2 transition-all duration-300 hover:scale-110 dark:hover:drop-shadow-[0_0_15px_rgba(14,165,233,1)] z-10 opacity-70 hover:opacity-100 filter dark:invert-0 invert transition-all duration-500">
+        <img src="{{ url_for('static', filename='assets/rightarrow.png') }}" alt="Go to Decryption" class="w-24 h-24">
+    </a>
+    <script src="{{ url_for('static', filename='js/transitions.js') }}"></script>
+</body>
+
+</html>
