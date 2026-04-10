@@ -24,7 +24,7 @@
     *   **Example:** We don't save anything! Your messages and keys happen right then and there and aren't stored on any server.
     *   **Fast:** Everything feels instant because it's built to be quick.
 
-## Demo and Live Links
+## Live Link
 
 - Live link is [here](https://e-and-d-t9r2.onrender.com).
 
