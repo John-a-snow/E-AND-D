@@ -13,7 +13,87 @@
         @font-face {
             font-family: 'Wagon Serif';
             src: url("{{ url_for('static', filename=fonts/Wagon-Bold.otf') }}") format('opentype');
-            font
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Wagon Serif', serif;
+        }
+
     </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'wagon': ['Wagon-Serif', 'serif'],
+                        'calibri': ['Calibri', 'sans-serif'],
+                        'barlow': ['Barlow Condensed', 'sans-serif'],
+                    },
+                    colors: {
+                        'canary': #D6C200',
+                        'primary': #0ea5e9'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-</html>
+
+<body class="bg-gray-100 dark:bg-gray-900 h-screen m-0 p-0 text-gray-900 dark:text-gray-100 overflow-hidden transiton-colors duration-500">
+    <button onclick="toggleTheme()"
+        class="fixed top-6 right-6 z-50 p-3 rounded-full bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow-lg border-[2px] border-gray-300 dark:border-primary hover:scale-110 transition-transform">
+
+        <svg class="w-6 h-6 hidden dark:block text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+
+        <svg class="w-6 h-6 block dark:hidden text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+    </button>
+
+    <div id="page-container"
+        class="w-full h-full flex justify-center items-center relative transform transition-all duration-500 ease-in-out -transate-x-full opacity-0">
+        
+        <div class="container mx-auto text-center px-4 max-w-2xl">
+            <h1 class="container mx-auto text-center px-4 max-w-2xl">
+            <div
+                class="text-left bg-white/80 dark:bg-gray-800/80 p-8 rounded-xl backdrop-blur-md border-[2px] border-gray-300 dark:border-primary shadow-[0_5px_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(14,165,233,0.2)] transition-colors duration-500">
+                <form action="{{ url_for('encrypt_text')}}" method="post " enctype="multipart/form-data">
+                    <div class="mb-5">
+                        <label for="message"
+                          class="block text-2xl mb-2 text-primary font-barlow tracking-wide uppercase font-semibold">Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Enter text to encrypt..."
+                            class="w-full p-2.5 text-xl bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 border-[2px] border-gray-300 dark:border-primary rounded-lg font-calibri focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:shadow-[0_0_15px_rgba(14,165,233,0.3)] dark:focus:shadow-[0_0_15px_rgba(14,165,233,0.5)] transition-all duration-300"></textarea>
+                    </div>
+                    <div class="mb-5">
+                        <label for="key"
+                            class="block text-2xl mb-2 text-primary font-barlow tracking-wide uppercase font-semibold">Key</label>
+                        <input type="text" id="key" name="key" placeholder="Enter encryption key..."
+                            class="w-full p-2.5 text-xl bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 border-[2px] border-gray-300 dark:border-primary rounded-lg font-calibri focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:shadow-[0_0_15px_rgba(14,165,233,0.3)] dark:focus:shadow-[0_0_15px_rgba(14,165,233,0.5)] transition-all duration-300">
+                    </div>
+                    <button type="submit"
+                        class="w-full p-4 text-2xl font-bold text-white dark:text-gray-900 bg-primary rounded-lg font-barlow tracking-wider uppercase cursor-pointer border-none transition-all duration-200 hover:bg-sky-400 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[0_0_15px_rgba(14,165,233,0.4)] dark:hover:shadow-[0_0_15px_rgba(14,165,233,0.6)] active:translate-x-0 active:translate-y-0 active:shadow-[0_0_5px_rgba(14,165,233,0.2)]">Encrypt</button>
+                </form>
+            </div>
+        </div>
+
+        <a href="{{ url_for('index') }}"
+            class="absolute top-1/2 right-4 -translate-y-1/2 transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(14,165,233,1)] z-10 filter dark:invert-0 invert transition-all duration-500">
+            <img src="{{ url_for(static', filename='assets/rightarrow.png') }}" alt="Back to Home" class="w-24 h-24">
+        </a>
+    </div> 
+
+    <div id="result-modal"
+        class="fixed inset-0 flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black/50 dark:bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
+        <div class="relative bg-white/95 dark:bg-gray-800/95 p-8 rounded-xl shadow-[0_5px_20px_rgba(0,0,0,0.2)] dark:shadow-[0_0_20px_rgba(14,165,233,0.3)] border-[2px] border-gray-300 dark:border-primary max-w-2xl w-full mx-4 transform scale-95 transition-all duration-300 translate-y-4"
+            id="modal-content">
+            <button id="close-modal"
+            class="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors z-10">
+            <svg xmlns="http://www.w3.org/200/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        
+                </svg>          
