@@ -51,4 +51,26 @@
 
     <div id="page-container"
         class="w-full h-full flex justify-center items-center relative transform transition-all duration-500 ease-in-out translate-x-full opacity-0">
-    </div>
+        <div class="container mx-auto text-center px-4 max-w-2xl">
+            <h1 class="text-8xl font-bold mb-8 text-gray-900 dark:text-gray-100 dark:drop-shadown-[0_0_10px_rgba(14,165,233,0.5)]">Decryption</h1>
+            <div
+                class="text-left bg-white/80 dark:bg-gray-800/80 p-8 rounded-xl backdrop-blur-md border-[2px] border-gray-300 dark:border-primary shadow-[0_5px_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(14,165,233,0.2)] transition-colors duration-500">
+                <form action="{{ url_for('decrypt_text') }}" method="POST" enctype="multipart/form-data">
+                    <div class="mb-5">
+                        <label for="encrypted-message"
+                            class="block text-2xl mb-2 text-primary font-barlow tracking-wide uppercase font-semibold">Encrypted
+                            Message</label>
+                        <textarea id="encrypted_message" name="encrypted_message" rows="4
+                            placeholder=Enter text to decrypt..."
+                            class="w-full p-2.5 text-xl bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 border-[2px] border-gray-300 dark:border-primary rounded-lg font-calibri focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:shadow-[0_0_15px_rgba(14,165,233,0.3)] dark:focus:shadow-[0_0_15px_rgba(14,165,233,0.5)] transition-all duration-300"></textarea>
+                    </div>
+                    <div class="mb-5">
+                        <label for="file"
+                            class="block texrt-2xl mb-2 text-primary font-barlow tracking-wide uppercase font-semibold">Or
+                            Upload File (.txt)</label>
+                        <input type="file" id="file" name="file" accept=".txt"
+                            class="w-full p-2.5 text-xl bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-grat-100 border-[2px] border-gray-300 dark:border-primary rounded-lg font calibri focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:shadow-[0_0_15px_rgba(14,165)]"
+                    </div>
+                        
+                        </div>
+                </form>
